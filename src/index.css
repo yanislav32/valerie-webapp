@@ -1,9 +1,7 @@
-/* Tailwind directives */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-/* Anonymous Pro font */
 @font-face {
   font-family: 'Anonymous Pro';
   font-style: normal;
@@ -12,5 +10,8 @@
 }
 
 body {
+  margin: 0;
   font-family: 'Anonymous Pro', monospace;
+  background: black;
+  color: white;
 }
