@@ -1,54 +1,115 @@
-# React + TypeScript + Vite
+cat > README.md << 'EOF'
+# Valerie Couture WebApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Клиентская часть Telegram WebApp для проекта **Valerie Couture**.  
+Построена на **Vite**, **React** и **TypeScript**, стилизована с помощью **Tailwind CSS** и шрифта **Anonymous Pro**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Установка
 
-## Expanding the ESLint configuration
+\`\`\`bash
+npm install
+\`\`\`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Разработка
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+\`\`\`bash
+npm run dev
+\`\`\`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Откройте [http://localhost:5173](http://localhost:5173) в браузере или запустите WebApp внутри мобильного Telegram.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Сборка и предпросмотр
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+\`\`\`bash
+npm run build
+npm run preview
+\`\`\`
+
+Собранный результат будет в папке \`dist/\`.
+
+---
+
+## Структура проекта
+
+\`\`\`
+valerie-webapp/
+├── public/             # Статичные файлы (шрифты, изображения)
+│   └── fonts/
+│       └── AnonymousPro-Regular.woff2
+├── src/
+│   ├── pages/          # Страницы приложения (FeedPage, CatalogPage и т.д.)
+│   ├── components/     # Повторно используемые компоненты
+│   ├── App.tsx         # Роутер с React-Router
+│   ├── main.tsx        # Точка входа (ReactDOM.render)
+│   └── index.css       # Tailwind, шрифты и глобальные стили
+├── tailwind.config.js  # Конфиг Tailwind CSS (fontFamily и пути)
+├── postcss.config.cjs  # Конфиг PostCSS
+├── vite.config.ts      # Конфиг Vite
+└── index.html          # Шаблон HTML с подключением Telegram WebApp SDK
+\`\`\`
+
+---
+
+## Tailwind CSS и шрифт
+
+1. В \`tailwind.config.js\`:
+   \`\`\`js
+   module.exports = {
+     content: ['./index.html', './src/**/*.{ts,tsx}'],
+     theme: {
+       extend: {
+         fontFamily: {
+           'anonymous-pro': ['"Anonymous Pro"', 'monospace'],
+         },
+       },
+     },
+     plugins: [],
+   }
+   \`\`\`
+2. В \`src/index.css\`:
+   \`\`\`css
+   @import "tailwindcss/base";
+   @import "tailwindcss/components";
+   @import "tailwindcss/utilities";
+
+   @font-face {
+     font-family: 'Anonymous Pro';
+     font-style: normal;
+     font-weight: 400;
+     src: url('/fonts/AnonymousPro-Regular.woff2') format('woff2');
+   }
+
+   body {
+     font-family: 'Anonymous Pro', monospace;
+   }
+   \`\`\`
+
+---
+
+## Переменные окружения
+
+Создайте файл \`.env\` в корне (не коммитится!) и добавьте:
+
+\`\`\`env
+VITE_WEBAPP_URL=https://your-app-domain.com  # URL вашего WebApp (ngrok или Vercel)
+\`\`\`
+
+---
+
+## Деплой
+
+1. Запушьте репозиторий на GitHub (ветка \`main\`).
+2. В Vercel нажмите **Import Project**, выберите \`valerie-webapp\`.
+3. Убедитесь, что в настройках сборки указано:
+   - Build Command: \`npm run build\`
+   - Output Directory: \`dist\`
+4. После деплоя ваш WebApp будет доступен по адресу вида \`https://<your-project>.vercel.app\`.
+
+Этот же домен (без \`https://\`) укажите в BotFather через \`/setdomain\` и в \`.env\` бота как \`WEBAPP_URL\`.
+
+---
+
+*Автор: команда Valerie Couture*  
+EOF
