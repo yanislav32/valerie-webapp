@@ -1,0 +1,16 @@
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Anonymous Pro font */
+@font-face {
+  font-family: 'Anonymous Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/AnonymousPro-Regular.woff2') format('woff2');
+}
+
+body {
+  font-family: 'Anonymous Pro', monospace;
+}
